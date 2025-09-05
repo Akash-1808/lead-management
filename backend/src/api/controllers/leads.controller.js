@@ -83,21 +83,21 @@ const getAllLeads = async (req, res) => {
 const getByFilter = async (req, res) => { 
     const filter = req.query.filter || "";
     const status = req.query.status || "";
-    const { filterCondition } = req.body || "OR"; // Default to "OR" if not provided
-    console.log("Filter Condition:", filterCondition);
+    const condition = req.query.condition; // Default to "OR" if not provided
+    console.log("Filter Condition:", condition);
     console.log("Filter:", req.query.filter);
     console.log("Status:", status);
 
     try {   
         let query = {};
-        if (filterCondition === "AND") {
+        if (condition === "AND") {
             query = {$and : [
                 { name: { $regex: filter } },
                 { status: { $regex: status } }
             ]}
         }
 
-        else if(filterCondition === "OR"){
+        else if(condition === "OR"){
             query = {
                 $or : [
                 { name: { $regex: filter } },
