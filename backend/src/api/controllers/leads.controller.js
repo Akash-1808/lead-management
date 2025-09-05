@@ -92,18 +92,18 @@ const getByFilter = async (req, res) => {
         let query = {};
         if (condition === "AND") {
             query = {$and : [
-                { name: { $regex: filter } },
-                { status: { $regex: status } }
+                { name: { $regex: filter , $options: "i" } },
+                { status: { $regex: status , $options: "i" } }
             ]}
         }
 
         else if(condition === "OR"){
             query = {
                 $or : [
-                { name: { $regex: filter } },
-                { phoneNumber: { $regex: filter } },
-                { email: { $regex: filter } },
-                { status: { $regex: status } }
+                { name: { $regex: filter , $options: "i" } },
+                { phoneNumber: { $regex: filter , $options: "i" } },
+                { email: { $regex: filter , $options: "i" } },
+                { status: { $regex: status , $options: "i" } }
             ]
         }
         }
@@ -111,7 +111,7 @@ const getByFilter = async (req, res) => {
         else{
             query ={
                 $or: [
-                { name: { $regex: filter } }
+                { name: { $regex: filter , $options: "i" } }
                 ]
             }
         }
