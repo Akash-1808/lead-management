@@ -1,0 +1,48 @@
+{
+            "0":{
+            "name": "Kari Legros",
+            "phoneNumber": "857.256.0540",
+            "alternatePhoneNumber": "857.256.0540",
+            "status": "Follow-Up",
+            "qualification": "Masters",
+            "interestedField": "Mobile Development",
+            "source": "Email Campaign",
+            "assignedTo": "John Doe",
+            "jobInterest": "Web Development",
+            "state": "UK",
+            "city": "xyz",
+            "passOutYear": 2024,
+            "heardFrom": "Others"
+        },
+        "2":{
+            "name": "Bridget Hayes",
+            "phoneNumber": "1-318-365-9874 x98876",
+            "alternatePhoneNumber": "1-318-365-9874 x98876",
+            "status": "Qualified",
+            "qualification": "PhD",
+            "interestedField": "Digital Marketing",
+            "source": "Website",
+            "assignedTo": "John Doe",
+            "jobInterest": "Mobile Development",
+            "state": "USA",
+            "city": "abc",
+            "passOutYear": 2023,
+            "heardFrom": "Friends"
+         },
+         "3":{
+             "name": "Dr. Lawrence Cummings IV",
+            "phoneNumber": "314.612.3224 x796",
+            "alternatePhoneNumber": "314.612.3224 x796",
+            "status": "Qualified",
+            "qualification": "High School",
+            "interestedField": "Mobile Development",
+            "source": "Cold Call",
+            "assignedTo": "Jane Smith",
+            "jobInterest": "Mobile Development",
+            "state": "USA",
+            "city": "abc",
+            "passOutYear": 2023,
+            "heardFrom": "Friends"
+         }
+
+}
