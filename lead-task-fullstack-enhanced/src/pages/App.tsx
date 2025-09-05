@@ -15,56 +15,86 @@ const App = () => {
   const [isFilterForm, setIsFilterForm] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [leads, setLeads] = useState<leadsTypesData[]>([])
-  const [filteredLeads, setFilteredLeads] = useState<LeadFilterFormValues[]>([])
+  const [filteredLeads, setFilteredLeads] = useState<LeadFilterFormValues | null>(null)
 
-   if(!leads){
-      useEffect( ()=>{ async function fetchLeads() {
+  //  if(!leads){
+  //     useEffect( ()=>{ async function fetchLeads() {
         
-       try{
-        const responseLead = await axios({
-          method: "GET",
-          url: import.meta.env.VITE_API_BASE_URL,
-        })
-        console.log("Fetched leads:", responseLead.data)
-        setLeads(responseLead.data)
-      }catch(error){
-        console.error("Error fetching leads:", error)
-      }
-      } fetchLeads()},[])
-  
-  }
-  
-  else {
-  //   useEffect(()=>{
-  //   axios({
-  //     method:"GET",
-  //     url: `http://localhost:3000/api/leads/search?filter=${filteredLeads[0].filterBy}&status=${filteredLeads[0].status}`,
-  //     data: {
-  //       filterCondition: filteredLeads[0].Match
+  //      try{
+  //       const responseLead = await axios({
+  //         method: "GET",
+  //         url: import.meta.env.VITE_API_BASE_URL,
+  //       })
+  //       console.log("Fetched leads:", responseLead.data)
+  //       setLeads(responseLead.data)
+  //     }catch(error){
+  //       console.error("Error fetching leads:", error)
   //     }
-  //   }).then((response)=>{
-  //     console.log(response.data)
-  //     setLeads(response.data)
-  //   }
-  //   ).catch((error)=>{
-  //     console.error("Error search leads by filter: ", error)
-  //   })
-  // },[filteredLeads])
+  //     } fetchLeads()},[])
+  
+  // }
+  
+  // else {
+    useEffect(()=>{
+      const fetchLeads = async () => {
+
+        
+        try {
+          let url = `${import.meta.env.VITE_API_BASE_URL}/search?`;
+          let data: any = {};
+        console.log("Filtered Leads:", filteredLeads);
+          
+        if(!filteredLeads && !searchTerm) {
+            url = `${import.meta.env.VITE_API_BASE_URL}`;
+          }
+          else if(filteredLeads) {
+            const filter = filteredLeads
+            url += `filter=${searchTerm}&status=${filter.filterBy}&condition=${filter.Match}`;
+            data = {
+              filterCondition: filter.Match
+            };
+          }
+          else if (searchTerm) {
+            url += `filter=${searchTerm}`;
+          }
+          console.log("Request URL:", url);
+          console.log("Request Data:", data);
+          const response = await axios.get(url);
+          // console.log("Fetched leads:", response.data);
+          setLeads(response.data);
+        } catch (error) {
+          console.error("Error fetching leads:", error);
+        }
+    // axios({
+    //   method:"GET",
+    //   url: `http://localhost:3000/api/leads/search?filter=${filteredLeads[0].filterBy}&status=${filteredLeads[0].status}`,
+    //   data: {
+    //     filterCondition: filteredLeads[0].Match
+    //   }
+    // }).then((response)=>{
+    //   console.log(response.data)
+    //   setLeads(response.data)
+    // }
+    // ).catch((error)=>{
+    //   console.error("Error search leads by filter: ", error)
+    // })
+  
 
 
-  useEffect(()=>{
-    import.meta.env.VITE_API_BASE_URL && console.log("API Base URL:", import.meta.env.VITE_API_BASE_URL);
-    axios({
-      method: "GET",
-      url: `${import.meta.env.VITE_API_BASE_URL}/search?filter=${searchTerm}`,
-    }).then((response) => {
-      console.log("Search results:", response.data)
-      setLeads(response.data)
-    }).catch((error) => {
-      console.error("Error searching leads:", error)
-    })
-  },[searchTerm])
-}
+ 
+    // import.meta.env.VITE_API_BASE_URL && console.log("API Base URL:", import.meta.env.VITE_API_BASE_URL);
+    // axios({
+    //   method: "GET",
+    //   url: `${import.meta.env.VITE_API_BASE_URL}/search?filter=${searchTerm}`,
+    // }).then((response) => {
+    //   console.log("Search results:", response.data)
+    //   setLeads(response.data)
+    // }).catch((error) => {
+    //   console.error("Error searching leads:", error)
+    // })
+    }; fetchLeads()
+  },[searchTerm, filteredLeads,isActiveForm])
+// }
   return (
     <div className="p-4 bg-slate-50">
       <h1 className="text-2xl font-bold mb-4">Lead Enquiry Form</h1>
