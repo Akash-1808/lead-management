@@ -15,7 +15,7 @@ export default function LeadForm({ isActiveForm, setIsActiveForm, }) {
     try {
       const responded = await axios({
         method: "POST",
-        url: "http://localhost:3000/api/leads/create",
+        url: import.meta.env.VITE_API_BASE_URL,
         data: data,
       })
       console.log(responded.data)
