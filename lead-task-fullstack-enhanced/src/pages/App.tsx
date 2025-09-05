@@ -17,15 +17,13 @@ const App = () => {
   const [leads, setLeads] = useState<leadsTypesData[]>([])
   const [filteredLeads, setFilteredLeads] = useState<LeadFilterFormValues[]>([])
 
-  if(!leads){
-
+   if(!leads){
       useEffect( ()=>{ async function fetchLeads() {
-         
+        
        try{
         const responseLead = await axios({
-          method:"GET",
-          url: "http://localhost:3000/api/leads",
-
+          method: "GET",
+          url: import.meta.env.VITE_API_BASE_URL,
         })
         console.log("Fetched leads:", responseLead.data)
         setLeads(responseLead.data)
@@ -55,13 +53,14 @@ const App = () => {
 
 
   useEffect(()=>{
+    import.meta.env.VITE_API_BASE_URL && console.log("API Base URL:", import.meta.env.VITE_API_BASE_URL);
     axios({
-      method:"GET",
-      url:`http://localhost:3000/api/leads/search?filter=${searchTerm}`,
-    }).then((response)=>{
+      method: "GET",
+      url: `${import.meta.env.VITE_API_BASE_URL}/search?filter=${searchTerm}`,
+    }).then((response) => {
       console.log("Search results:", response.data)
       setLeads(response.data)
-    }).catch((error)=>{
+    }).catch((error) => {
       console.error("Error searching leads:", error)
     })
   },[searchTerm])

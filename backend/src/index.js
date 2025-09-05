@@ -6,7 +6,9 @@ const app = e();
 
 
 app.use(e.json());
-app.use(cors())
+app.use(cors({
+    origin: process.env.ORIGIN_URL.split(",")
+}))
 
 app.use("/api/leads", leadRoutes);
 
