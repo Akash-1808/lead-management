@@ -6,8 +6,7 @@ import LeadFilterForm from "../components/LeadFilterForm/page";
 import axios from "axios";
 import { leadsTypesData } from "../types/leadsList";
 import { LeadFilterFormValues } from "../types/filterTypes";
-import { error } from "console";
-import { set } from "react-hook-form";
+
 
 
 
@@ -18,10 +17,10 @@ const App = () => {
   const [leads, setLeads] = useState<leadsTypesData[]>([])
   const [filteredLeads, setFilteredLeads] = useState<LeadFilterFormValues[]>([])
 
-  if(searchTerm==="" || filteredLeads.length>0){
+  if(!leads){
 
       useEffect( ()=>{ async function fetchLeads() {
-        setLeads([]) 
+         
        try{
         const responseLead = await axios({
           method:"GET",
